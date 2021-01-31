@@ -1,4 +1,5 @@
 ﻿using Prism.Mvvm;
+using Prism.Regions;
 
 namespace PracticeEntiryFramework.ViewModels
 {
@@ -11,9 +12,13 @@ namespace PracticeEntiryFramework.ViewModels
             set { SetProperty(ref _title, value); }
         }
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(IRegionManager regionManager)
         {
-
+            _regionManager = regionManager;
+            _regionManager.RegisterViewWithRegion("ContentRegion", typeof(Views.MainWindowContent));
+            _regionManager.RequestNavigate("ContentRegion", "MainWindowContent");
         }
+
+        private readonly IRegionManager _regionManager;
     }
 }
